@@ -5,11 +5,21 @@ import App from './App.jsx'
 import Nav from '../src/components/Nav.jsx'
 import './index.css'
 import Root from "./routes/root.jsx";
+import Pokemon from "../src/views/Pokemon.jsx"
+import About from '../src/views/About.jsx';
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Root />,
+  },
+  {
+    path: "/pokemon",
+    element: <Pokemon />,
+  },
+  {
+    path: "/about",
+    element: <About />,
   },
 ]);
 
