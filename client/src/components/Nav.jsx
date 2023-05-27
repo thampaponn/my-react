@@ -1,6 +1,6 @@
 import React from "react"
 import { Link } from "react-router-dom"
-import Pokemon from "../views/Pokemon"
+
 function Nav() {
 
     return (
@@ -18,10 +18,10 @@ function Nav() {
             </div>
             <div className="flex w-full flex-grow lg:flex lg:items-center lg:w-auto">
                 <div className="text-sm lg:flex-grow">
-                    <Link to="/pokemon" className="flex items-center mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">
+                    <Link to="/pokemon" className="flex items-center text-base lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">
                         Pokémon
                     </Link>
-                    <Link to="/about" className="flex items-center mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">
+                    <Link to="/about" className="flex items-center text-base lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">
                         About
                     </Link>
                 </div>
