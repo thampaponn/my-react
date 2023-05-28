@@ -5,7 +5,12 @@ function Pokemon() {
     return (
         <>
             <Nav />
-            <h1>this is pokemon</h1>
+            <div className='flex items-center justify-center h-screen bg-gradient-to-br from-blue-500 to-blue-800'>
+                <div className="bg-white text-center rounded-3xl border shadow-lg p-10 max-w-xs">
+                    
+
+                </div>
+            </div>
         </>
     )
 }
