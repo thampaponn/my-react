@@ -4,6 +4,7 @@ export default function Root() {
     const [name, setName] = useState("eevee");
     const [data, setData] = useState([]);
     const [err, setErr] = useState(false);
+    const [errorMsg, setErrorMsg] = useState('');
     const [isLoading, setIsLoading] = useState(false);
 
     async function getPokemon() {
@@ -16,6 +17,7 @@ export default function Root() {
         } catch (error) {
             setData([]); // Set an empty array instead of false
             setErr(true);
+            setErrorMsg('No data was found!')
         }
         setIsLoading(false);
     }
@@ -27,8 +29,13 @@ export default function Root() {
 
     function handleSubmit(e) {
         e.preventDefault();
-        setErr(false); // Reset the error state
-        getPokemon();
+        if (name === '') {
+            setErr(true);
+            setErrorMsg('No data was given!');
+        } else {
+            setErr(false); // Reset the error state
+            getPokemon();
+        }
     }
 
     console.log(name);
@@ -44,7 +51,7 @@ export default function Root() {
                     </form>
 
                     {err ? (
-                        <p className='my-5'>No data was found!</p>
+                        <p className='my-5'>{errorMsg}</p>
                     ) : (
                         <>
                             {isLoading ? (
