@@ -12,16 +12,16 @@ export default function Root() {
                         <h1 className="text-[#4C49ED] text-3xl font-extrabold font-mulish">app</h1>
                     </div>
                     <div className="flex flex-col items-start py-20 flex-grow">
-                        <ul className="flex justify-start w-60 font-mulish items-center text-[#A1A0BD] text-xl hover:text-[#4C49ED] transition-colors duration-300 hover:bg-[#E4E3FF] rounded-md px-4 py-5 cursor-pointer">Dashboard</ul>
-                        <ul className="flex justify-start w-60 font-mulish items-center text-[#A1A0BD] text-xl hover:text-[#4C49ED] transition-colors duration-300 hover:bg-[#E4E3FF] rounded-md px-4 py-5 cursor-pointer">Invoice</ul>
-                        <ul className="flex justify-start w-60 font-mulish items-center text-[#A1A0BD] text-xl hover:text-[#4C49ED] transition-colors duration-300 hover:bg-[#E4E3FF] rounded-md px-4 py-5 cursor-pointer">Wallets</ul>
-                        <ul className="flex justify-start w-60 font-mulish items-center text-[#A1A0BD] text-xl hover:text-[#4C49ED] transition-colors duration-300 hover:bg-[#E4E3FF] rounded-md px-4 py-5 cursor-pointer">Reports</ul>
-                        <ul className="flex justify-start w-60 font-mulish items-center text-[#A1A0BD] text-xl hover:text-[#4C49ED] transition-colors duration-300 hover:bg-[#E4E3FF] rounded-md px-4 py-5 cursor-pointer">Transactions</ul>
+                        <button className="flex justify-start w-60 font-mulish items-center text-[#A1A0BD] text-xl hover:text-[#4C49ED] transition-colors duration-300 hover:bg-[#E4E3FF] rounded-md px-4 py-5 cursor-pointer">Dashboard</button>
+                        <button className="flex justify-start w-60 font-mulish items-center text-[#A1A0BD] text-xl hover:text-[#4C49ED] transition-colors duration-300 hover:bg-[#E4E3FF] rounded-md px-4 py-5 cursor-pointer">Invoice</button>
+                        <button className="flex justify-start w-60 font-mulish items-center text-[#A1A0BD] text-xl hover:text-[#4C49ED] transition-colors duration-300 hover:bg-[#E4E3FF] rounded-md px-4 py-5 cursor-pointer">Wallets</button>
+                        <button className="flex justify-start w-60 font-mulish items-center text-[#A1A0BD] text-xl hover:text-[#4C49ED] transition-colors duration-300 hover:bg-[#E4E3FF] rounded-md px-4 py-5 cursor-pointer">Reports</button>
+                        <button className="flex justify-start w-60 font-mulish items-center text-[#A1A0BD] text-xl hover:text-[#4C49ED] transition-colors duration-300 hover:bg-[#E4E3FF] rounded-md px-4 py-5 cursor-pointer">Transactions</button>
                         <div className="flex-grow"></div>
-                        <ul className="flex justify-start w-60 font-mulish items-center text-[#A1A0BD] text-xl hover:text-[#4C49ED] transition-colors duration-300 hover:bg-[#E4E3FF] rounded-md px-4 py-5 cursor-pointer">Settings</ul>
-                        <ul className="flex justify-start w-60 font-mulish items-center text-[#A1A0BD] text-xl hover:text-[#4C49ED] transition-colors duration-300 hover:bg-[#E4E3FF] rounded-md px-4 py-5 cursor-pointer">Help</ul>
+                        <button className="flex justify-start w-60 font-mulish items-center text-[#A1A0BD] text-xl hover:text-[#4C49ED] transition-colors duration-300 hover:bg-[#E4E3FF] rounded-md px-4 py-5 cursor-pointer">Settings</button>
+                        <button className="flex justify-start w-60 font-mulish items-center text-[#A1A0BD] text-xl hover:text-[#4C49ED] transition-colors duration-300 hover:bg-[#E4E3FF] rounded-md px-4 py-5 cursor-pointer">Help</button>
                         <div className="pb-8"></div>
-                        <ul className="flex justify-start w-60 font-mulish items-center text-red-500 text-xl hover:text-red-800 transition-colors duration-300 hover:bg-red-100 rounded-md px-4 py-5 cursor-pointer">Log Out</ul>
+                        <button className="flex justify-start w-60 font-mulish items-center text-red-500 text-xl hover:text-red-800 transition-colors duration-300 hover:bg-red-100 rounded-md px-4 py-5 cursor-pointer">Log Out</button>
                     </div>
                 </div>
                 <div className='flex flex-col bg-[#E1E1F5] h-screen w-4/5 px-8 py-12'>
