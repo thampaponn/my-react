@@ -6,25 +6,22 @@ export default function Root() {
         <>
             <div className="flex">
                 <div className='flex flex-col bg-white h-screen rounded-r-lg w-1/5 px-12'>
-                    <div className="flex justify-center items-center mt-20  cursor-pointer">
-                        <FontAwesomeIcon className='flex items-center text-2xl mx-2 text-[#4C49ED]' icon={faChartSimple}></FontAwesomeIcon>
+                    <div className="flex justify-center items-center mt-20 cursor-pointer">
+                        <FontAwesomeIcon className='flex items-center text-2xl mx-2 text-[#4C49ED]' icon={faChartSimple} />
                         <h1 className="text-black text-3xl font-extrabold font-mulish">Fin</h1>
                         <h1 className="text-[#4C49ED] text-3xl font-extrabold font-mulish">app</h1>
                     </div>
-                    <div className="flex flex-col items-center py-20">
+                    <div className="flex flex-col items-start py-20 flex-grow">
                         <ul className="flex justify-start w-60 font-mulish items-center text-[#A1A0BD] text-xl hover:text-[#4C49ED] transition-colors duration-300 hover:bg-[#E4E3FF] rounded-md px-4 py-5 cursor-pointer">Dashboard</ul>
                         <ul className="flex justify-start w-60 font-mulish items-center text-[#A1A0BD] text-xl hover:text-[#4C49ED] transition-colors duration-300 hover:bg-[#E4E3FF] rounded-md px-4 py-5 cursor-pointer">Invoice</ul>
                         <ul className="flex justify-start w-60 font-mulish items-center text-[#A1A0BD] text-xl hover:text-[#4C49ED] transition-colors duration-300 hover:bg-[#E4E3FF] rounded-md px-4 py-5 cursor-pointer">Wallets</ul>
                         <ul className="flex justify-start w-60 font-mulish items-center text-[#A1A0BD] text-xl hover:text-[#4C49ED] transition-colors duration-300 hover:bg-[#E4E3FF] rounded-md px-4 py-5 cursor-pointer">Reports</ul>
                         <ul className="flex justify-start w-60 font-mulish items-center text-[#A1A0BD] text-xl hover:text-[#4C49ED] transition-colors duration-300 hover:bg-[#E4E3FF] rounded-md px-4 py-5 cursor-pointer">Transactions</ul>
-                    </div>
-                    <hr />
-                    <div className="flex flex-col items-center py-8">
+                        <div className="flex-grow"></div>
                         <ul className="flex justify-start w-60 font-mulish items-center text-[#A1A0BD] text-xl hover:text-[#4C49ED] transition-colors duration-300 hover:bg-[#E4E3FF] rounded-md px-4 py-5 cursor-pointer">Settings</ul>
                         <ul className="flex justify-start w-60 font-mulish items-center text-[#A1A0BD] text-xl hover:text-[#4C49ED] transition-colors duration-300 hover:bg-[#E4E3FF] rounded-md px-4 py-5 cursor-pointer">Help</ul>
-                    </div>
-                    <div className="flex flex-col items-center py-8">
-                        <ul className="flex justify-start w-60 font-mulish items-center text-[#A1A0BD] text-xl hover:text-[#4C49ED] transition-colors duration-300 hover:bg-[#E4E3FF] rounded-md px-4 py-5 cursor-pointer">Log Out</ul>
+                        <div className="pb-8"></div>
+                        <ul className="flex justify-start w-60 font-mulish items-center text-red-500 text-xl hover:text-red-800 transition-colors duration-300 hover:bg-red-100 rounded-md px-4 py-5 cursor-pointer">Log Out</ul>
                     </div>
                 </div>
                 <div className='flex bg-[#E1E1F5] h-screen w-4/5'>
