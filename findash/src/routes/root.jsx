@@ -32,8 +32,8 @@ export default function Root() {
                                 <p className='flex font-mulish text-2xl text-green-400 mt-2'>+ $28.55</p>
                                 <p className='flex font-mulish text-sm text-gray-300'>Last Transaction</p>
                                 <div className='flex h-full items-center my-4'>
-                                    <button className='flex justify-center font-mulish text-s w-full text-white bg-[#4C49ED] border-2 border-[#4C49ED] rounded-full py-3 mr-1 hover:bg-[#312eea] hover:border-[#312eea] hover:text-gray-200'>TOP UP</button>
-                                    <button className='flex justify-center font-mulish text-s w-full text-[#4C49ED] bg-white rounded-full border-2 border-[#4C49ED] py-3 ml-1 hover:bg-gray-200 hover:border-[#312eea] hover:text-[#312eea]'>WITHDRAW</button>
+                                    <button className='flex justify-center font-mulish text-s w-full text-white bg-[#4C49ED] border-2 border-[#4C49ED] rounded-full py-3 mr-1 hover:bg-[#312eea] hover:border-[#312eea] hover:text-gray-200 transition-colors duration-300'>TOP UP</button>
+                                    <button className='flex justify-center font-mulish text-s w-full text-[#4C49ED] bg-white rounded-full border-2 border-[#4C49ED] py-3 ml-1 hover:bg-gray-200 hover:border-[#312eea] hover:text-[#312eea] transition-colors duration-300'>WITHDRAW</button>
                                 </div>
                             </div>
                             <div className='flex flex-col justify-center items-center bg-[#4C49ED] w-1/2 h-full rounded-l-full ml-16'>
