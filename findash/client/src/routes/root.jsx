@@ -1,7 +1,15 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChartSimple } from '@fortawesome/free-solid-svg-icons'
+import pb from "../lib/pocketbase"
+import useLogout from "../hooks/useLogout"
+import { Link } from "react-router-dom"
+
 
 export default function Root() {
+    const logout = useLogout();
+    const isLoggedIn = pb.authStore.isValid;
+    console.log(isLoggedIn);
+
     return (
         <>
             <div className="flex">
@@ -21,7 +29,8 @@ export default function Root() {
                         <button className="flex justify-start w-60 font-mulish items-center text-[#A1A0BD] text-xl hover:text-[#4C49ED] transition-colors duration-300 hover:bg-[#E4E3FF] rounded-md px-4 py-5 cursor-pointer">Settings</button>
                         <button className="flex justify-start w-60 font-mulish items-center text-[#A1A0BD] text-xl hover:text-[#4C49ED] transition-colors duration-300 hover:bg-[#E4E3FF] rounded-md px-4 py-5 cursor-pointer">Help</button>
                         <div className="pb-8"></div>
-                        <button className="flex justify-start w-60 font-mulish items-center text-red-500 text-xl hover:text-red-800 transition-colors duration-300 hover:bg-red-100 rounded-md px-4 py-5 cursor-pointer">Log Out</button>
+                        {isLoggedIn ? <Link to="/login"><button onClick={logout} className="flex justify-start w-60 font-mulish items-center text-red-500 text-xl hover:text-red-800 transition-colors duration-300 hover:bg-red-100 rounded-md px-4 py-5 cursor-pointer">Log Out</button></Link> : <Link to="/login"><button className="flex justify-start w-60 font-mulish items-center text-green-500 text-xl hover:text-green-800 transition-colors duration-300 hover:bg-green-100 rounded-md px-4 py-5 cursor-pointer">Log In</button>
+                        </Link>}
                     </div>
                 </div>
                 <div className='flex flex-col bg-[#E1E1F5] h-screen w-4/5 px-8 py-12'>
