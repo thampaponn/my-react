@@ -4,6 +4,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import './index.css'
 import Root from './routes/root'
 import Login from '../src/views/Login'
+import Profile from '../src/views/Profile'
 import { QueryClient, QueryClientProvider } from 'react-query'
 
 const queryClient = new QueryClient();
@@ -16,6 +17,10 @@ const router = createBrowserRouter([
   {
     path: "/login",
     element: <Login />,
+  },
+  {
+    path: "/profile",
+    element: <Profile />,
   },
 ]);
 
