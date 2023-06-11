@@ -1,6 +1,6 @@
 import pb from "../lib/pocketbase";
 import { useForm } from "react-hook-form";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import useLogin from "../hooks/useLogin";
 import useLogout from "../hooks/useLogout";
 import useVerified, { requestVerification } from "../hooks/useVerified";
@@ -17,6 +17,8 @@ export default function Profile() {
     const { register, handleSubmit, reset } = useForm();
     const isLoggedIn = pb.authStore.isValid;
     const [imgsrc, setImgsrc] = useState("");
+    const [selectedFile, setSelectedFile] = useState(null);
+    const fileInputRef = useRef(null);
 
     async function getImage() {
         try {
@@ -50,13 +52,25 @@ export default function Profile() {
     }
 
     async function uploadImage() {
+        if (selectedFile) {
+            try {
+                const formData = new FormData();
+                formData.append("file", selectedFile);
+                formData.append("user", pb.authStore.model.id); // Include the user ID in the request
 
-    }
+                const response = await pb.collection("files").create(formData);
+                const recordID = response.id; // Retrieve the record ID from the response
 
-    async function onSubmit(data) {
-        login({ email: data.email, password: data.password });
-        reset();
-        // navigate("/");
+                // Update the UI or perform any other necessary actions
+                // with the recordID, filename, and user values.
+
+                setSelectedFile(null);
+                fileInputRef.current.value = null;
+                getImage(); // Refresh the image after uploading
+            } catch (error) {
+                console.error("Failed to upload the image:", error);
+            }
+        }
     }
 
     useEffect(() => {
@@ -112,10 +126,31 @@ export default function Profile() {
                                     </div>
                                 </>
                             </div>
-                            <div className='flex flex-col justify-center bg-white w-1/2 mx-4 rounded-xl overflow-hidden p-10'>
-                                <p className="flex font-mulish text-2xl justify-center mb-8">Profile Image</p>
-                                {imgsrc ? <img className="flex justify-center rounded-lg" src={imgsrc} alt="" /> : <p className="flex flex-col items-center font-mulish text-3xl justify-center my-8">Profile image has not been set! <button className="flex font-mulish text-lg my-8 border-2 border-black rounded px-4 hover:bg-gray-200 transition-colors duration-300">Upload Image</button> </p>}
-                                {imgsrc ? <button onClick={deleteImage} className="flex font-mulish text-md px-4 justify-center border-black border-2 rounded my-4 hover:bg-gray-200 transition-colors duration-300" type="">Delete Image</button> : ""}
+                            <div className='flex flex-col justify-center items-center bg-white w-1/2 mx-4 rounded-xl overflow-hidden p-16'>
+                                {imgsrc ? (
+                                    <>
+                                        <p className="flex font-mulish text-4xl justify-center my-4">Profile Image</p>
+                                        <img className="flex justify-center rounded-lg w-1/2" src={imgsrc} alt="" />
+                                        <button onClick={deleteImage} className="flex font-mulish text-md px-4 py-2 justify-center border-black border-2 rounded my-4 hover:bg-gray-200 transition-colors duration-300" type="">Delete Image</button>
+                                    </>
+                                ) : (
+                                    <>
+                                        <p className="flex flex-col items-center font-mulish text-3xl justify-center my-8">Profile image has not been set!</p>
+                                        <input
+                                            className="flex font-mulish justify-center text-md border-2 border-red-500 rounded px-4 py-2"
+                                            ref={fileInputRef}
+                                            type="file"
+                                            onChange={(event) => setSelectedFile(event.target.files[0])}
+                                        />
+                                        <button
+                                            onClick={uploadImage}
+                                            className="flex font-mulish text-md px-4 py-2 justify-center border-black border-2 rounded my-4 hover:bg-gray-200 transition-colors duration-300"
+                                            type="button"
+                                        >
+                                            Upload Image
+                                        </button>
+                                    </>
+                                )}
                             </div>
                         </div>
                     </div>
