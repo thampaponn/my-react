@@ -9,7 +9,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChartSimple } from '@fortawesome/free-solid-svg-icons';
 import { Link } from "react-router-dom";
 
-export default function Login() {
+export default function Profile() {
     const navigate = useNavigate();
     const logout = useLogout();
     const { data: isVerified } = useVerified();
@@ -17,6 +17,7 @@ export default function Login() {
     const { register, handleSubmit, reset } = useForm();
     const isLoggedIn = pb.authStore.isValid;
     const [imgsrc, setImgsrc] = useState("");
+
     async function getImage() {
         try {
             const collection = await pb.collection('files').getList();
@@ -34,6 +35,23 @@ export default function Login() {
         }
     }
 
+    async function deleteImage() {
+        try {
+            const collection = await pb.collection('files').getList();
+            if (pb.authStore.model.id === collection.items[0].user) {
+                const recordID = collection.items[0].id;
+                await pb.collection('files').delete(recordID);
+                setImgsrc("");
+                window.location.reload();
+            }
+        } catch (error) {
+            console.error('Failed to delete the image:', error);
+        }
+    }
+
+    async function uploadImage() {
+
+    }
 
     async function onSubmit(data) {
         login({ email: data.email, password: data.password });
@@ -90,12 +108,14 @@ export default function Login() {
                                         <div className="flex items-center font-mulish text-xl my-2">Username : {pb.authStore.model.username}</div>
                                         <div className="flex items-center font-mulish text-xl my-2">Email : {pb.authStore.model.email}</div>
                                         <div className="flex items-center font-mulish text-xl my-2">Account Status : {isVerified ? <p className="flex items-center font-mulish text-xl text-green-600 mx-2">Verified!</p> : <p className="flex items-center font-mulish text-xl text-red-600 mx-2">Account is not yet verified!</p>}</div>
-                                        {!isVerified && <button onClick={requestVerification} className="flex font-mulish text-md items-center justify-center border-black border-2 px-4 mx-4 rounded hover:bg-gray-200">Send Verification Email</button>}
+                                        {!isVerified && <button onClick={requestVerification} className="flex font-mulish text-md items-center justify-center border-black border-2 px-4 mx-4 rounded hover:bg-gray-200 transition-colors duration-300">Send Verification Email</button>}
                                     </div>
                                 </>
                             </div>
                             <div className='flex flex-col justify-center bg-white w-1/2 mx-4 rounded-xl overflow-hidden p-10'>
-                                {imgsrc ? <img className="flex justify-center rounded-lg" src={imgsrc} alt="" /> : <p className="flex flex-col items-center font-mulish text-3xl justify-center my-8">Profile image has not been set! <button className="flex font-mulish text-lg my-8 border-2 border-black rounded px-4">Upload Image</button> </p>}
+                                <p className="flex font-mulish text-2xl justify-center mb-8">Profile Image</p>
+                                {imgsrc ? <img className="flex justify-center rounded-lg" src={imgsrc} alt="" /> : <p className="flex flex-col items-center font-mulish text-3xl justify-center my-8">Profile image has not been set! <button className="flex font-mulish text-lg my-8 border-2 border-black rounded px-4 hover:bg-gray-200 transition-colors duration-300">Upload Image</button> </p>}
+                                {imgsrc ? <button onClick={deleteImage} className="flex font-mulish text-md px-4 justify-center border-black border-2 rounded my-4 hover:bg-gray-200 transition-colors duration-300" type="">Delete Image</button> : ""}
                             </div>
                         </div>
                     </div>
