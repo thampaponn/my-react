@@ -17,7 +17,7 @@ export default function Login() {
     async function onSubmit(data) {
         login({ email: data.email, password: data.password });
         reset();
-        // navigate("/");
+        navigate("/");
     }
 
     if (isLoggedIn)
