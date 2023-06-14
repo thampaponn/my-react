@@ -8,7 +8,7 @@ import { Link } from "react-router-dom"
 export default function Root() {
     const logout = useLogout();
     const isLoggedIn = pb.authStore.isValid;
-    // console.log(isLoggedIn);
+    console.log(pb.authStore.model);
 
     return (
         <>
@@ -50,7 +50,7 @@ export default function Root() {
                             </div>
                             <div className='flex flex-col justify-center items-center bg-[#4C49ED] w-1/2 h-full rounded-l-full ml-16'>
                                 <div className='flex items-end'>
-                                    <p className='flex text-5xl text-white'>$ 200</p>
+                                    <p className='flex text-5xl text-white'>$ {pb.authStore.model.money}</p>
                                     <p className='flex text-xl text-gray-300/40'>.58</p>
                                 </div>
                                 <p className='flex text-sm text-gray-300/60 my-2'>WALLETS AMOUNT</p>

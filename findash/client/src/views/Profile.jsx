@@ -1,6 +1,6 @@
 import pb from "../lib/pocketbase";
 import { useForm } from "react-hook-form";
-import { useState, useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import useLogin from "../hooks/useLogin";
 import useLogout from "../hooks/useLogout";
 import useVerified, { requestVerification } from "../hooks/useVerified";
@@ -21,6 +21,7 @@ export default function Profile() {
     const isLoggedIn = pb.authStore.isValid;
     const [imgsrc, setImgsrc] = useState("");
     const [selectedFile, setSelectedFile] = useState(null);
+    const [previewImgSrc, setPreviewImgSrc] = useState("");
     const fileInputRef = useRef(null);
 
     const MySwal = withReactContent(Swal)
@@ -49,7 +50,8 @@ export default function Profile() {
                 const recordID = collection.items[0].id;
                 await pb.collection('files').delete(recordID);
                 setImgsrc("");
-                window.location.reload();
+                setPreviewImgSrc("")
+                // window.location.reload();
             }
         } catch (error) {
             console.error('Failed to delete the image:', error);
@@ -57,39 +59,60 @@ export default function Profile() {
     }
 
     async function uploadImage() {
-        if (selectedFile && (isVerified === true)) {
+        if (selectedFile && selectedFile !== null) {
             try {
                 const formData = new FormData();
                 formData.append("file", selectedFile);
-                formData.append("user", pb.authStore.model.id); // Include the user ID in the request
+                formData.append("user", pb.authStore.model.id);
 
                 const response = await pb.collection("files").create(formData);
-                const recordID = response.id; // Retrieve the record ID from the response
-
-                // Update the UI or perform any other necessary actions
-                // with the recordID, filename, and user values.
+                const recordID = response.id;
 
                 setSelectedFile(null);
                 fileInputRef.current.value = null;
-                getImage(); // Refresh the image after uploading
+                getImage();
             } catch (error) {
                 console.error("Failed to upload the image:", error);
             }
         } else {
-            // alert("Please verify your account first!")
             MySwal.fire({
                 icon: "error",
                 confirmButtonColor: "#ff3333",
                 width: 450,
-                text: "Please verify your account!",
+                text: "No file selected!",
                 timer: 2000,
                 allowOutsideClick: true,
-            })
+            });
+            setPreviewImgSrc("");
         }
     }
 
     useEffect(() => {
         getImage();
+    }, []);
+
+    useEffect(() => {
+        const fileInput = fileInputRef.current;
+
+        const handleFileInputChange = (event) => {
+            const file = event.target.files[0];
+
+            if (!file) {
+                setPreviewImgSrc("");
+            } else {
+                setSelectedFile(file);
+                const newImgSrc = URL.createObjectURL(file);
+                setPreviewImgSrc(newImgSrc);
+            }
+        };
+
+        fileInput.addEventListener("change", handleFileInputChange);
+
+        return () => {
+            if (fileInput) {
+                fileInput.removeEventListener("change", handleFileInputChange);
+            }
+        };
     }, []);
 
     if (isLoggedIn) {
@@ -130,7 +153,7 @@ export default function Profile() {
                     </div>
                     <div className='flex flex-col bg-[#E1E1F5] h-screen w-4/5 px-8 py-12'>
                         <div className='flex w-full h-3/5 my-5'>
-                            <div className='flex flex-col justify-start bg-white w-1/2 mx-4 rounded-xl overflow-hidden p-10'>
+                            <div className='flex flex-col justify-start bg-white w-1/3 mx-4 rounded-xl overflow-hidden p-10'>
                                 <>
                                     <h1 className="flex text-5xl">Profile</h1>
                                     <div className="flex flex-col my-8">
@@ -141,26 +164,36 @@ export default function Profile() {
                                     </div>
                                 </>
                             </div>
-                            <div className='flex flex-col justify-center items-center bg-white w-1/2 mx-4 rounded-xl overflow-hidden p-16'>
+                            <div className='flex flex-col justify-between items-center bg-white w-2/3 mx-4 rounded-xl overflow-hidden p-12'>
                                 {imgsrc ? (
                                     <>
-                                        <p className="flex text-4xl justify-center my-4">Profile Image</p>
-                                        <img className="flex justify-center rounded-lg w-1/2" src={imgsrc} alt="" />
-                                        <button onClick={deleteImage} className="flex text-md px-4 py-2 justify-center border-black border-2 rounded my-4 hover:bg-gray-200 transition-colors duration-300" type="">Delete Image</button>
+                                        <p className="flex text-5xl justify-center my-4">Profile Image</p>
+                                        <img className="flex justify-center rounded-lg w-1/3" src={imgsrc} alt="" />
+                                        <button onClick={deleteImage} className="flex text-md px-4 py-2 justify-center border-black border-2 rounded my-4 hover:bg-gray-200 transition-colors duration-300 shadow-md" type="submit">Delete Image</button>
                                     </>
                                 ) : (
                                     <>
                                         <p className="flex flex-col items-center text-3xl justify-center my-8">Profile image has not been set!</p>
+                                        {previewImgSrc && (
+                                            <img className="flex justify-center rounded-lg w-1/5" src={previewImgSrc} alt="Preview" />
+                                        )}
                                         <input
-                                            className="flex justify-center text-md border-2 border-red-500 rounded px-4 py-2 mx-4 my-4"
+                                            className={`flex items-center justify-center text-md border-2 transition-colors duration-300 ${selectedFile ? 'border-green-500' : 'border-red-500'} rounded px-4 py-2 mx-4 my-4 shadow-md`}
                                             ref={fileInputRef}
                                             type="file"
-                                            onChange={(event) => setSelectedFile(event.target.files[0])}
+                                            onChange={(event) => {
+                                                const file = event.target.files[0];
+                                                setSelectedFile(file);
+
+                                                // Set the previewImgSrc to show the selected image as a preview
+                                                const newImgSrc = URL.createObjectURL(file);
+                                                setPreviewImgSrc(newImgSrc);
+                                            }}
                                         />
                                         <button
                                             onClick={uploadImage}
-                                            className="flex text-md px-4 py-2 justify-center border-black border-2 rounded my-4 hover:bg-gray-200 transition-colors duration-300"
-                                            type="button"
+                                            className="flex text-md px-4 py-2 justify-center border-black border-2 rounded hover:bg-gray-200 transition-colors duration-300 shadow-md"
+                                            type="submit"
                                         >
                                             Upload Image
                                         </button>
