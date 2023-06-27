@@ -2,6 +2,9 @@
 body,html {
     font-family: 'Prompt', sans-serif;
 }
+.swal2-close:focus {
+    box-shadow: none !important;
+}
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
